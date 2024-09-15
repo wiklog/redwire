@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Absence;
+use App\Models\Motif;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class AbsenceFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create()->id,
-            'absence_id' => Absence::factory()->create()->id,
+            'motif_id' => Motif::factory()->create()->id,
             'date_debut' => $this->faker->date(),
             'date_fin' => $this->faker->date(),
         ];

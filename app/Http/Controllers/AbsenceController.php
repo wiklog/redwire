@@ -9,12 +9,12 @@ class AbsenceController extends Controller
 {
     public function index()
     {
-        return view('{{ modelVariable}}.index');
+        return view('absence.index');
     }
 
     public function create()
     {
-        return view(view: '{{ modelVariable}}.create');
+        return view(view: 'absence.create');
     }
 
     public function store(Request $request)
@@ -22,10 +22,11 @@ class AbsenceController extends Controller
         //
     }
 
-    public function show(Absence $absence)
+    public function show($id)
     {
-        return view(view: 'absence.show');
+        $absence = Absence::findOrFail($id);
 
+        return view('absence.show', compact('absence'));
     }
 
     public function edit(Absence $absence)
