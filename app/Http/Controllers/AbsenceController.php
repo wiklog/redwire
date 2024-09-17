@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absence;
+use App\Models\Motif;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
 {
     public function index()
     {
-        return view('absence.index');
+        $users = User::all();
+        $motifs = Motif::all();
+        $absences = Absence::all();
+        return view('absence.index', compact('absences', 'users', 'motifs'));
     }
 
     public function create()

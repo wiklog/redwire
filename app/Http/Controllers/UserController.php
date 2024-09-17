@@ -31,8 +31,7 @@ class UserController extends Controller
         $absences = Absence::where('user_id', $users->id)->get();
         $motifs = Motif::all();
 
-
-        return view('user.show', compact('users', 'absences'));
+        return view('user.show', compact('users', 'absences', 'motifs'));
     }
     public function edit(User $user)
     {

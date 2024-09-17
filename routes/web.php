@@ -21,4 +21,4 @@ Route::get('/', function () {
 });
 Route::resource('/motif', MotifController::class);
 Route::resource('/absence', AbsenceController::class);
-Route::resource('user', UserController::class);
+Route::resource('/user', UserController::class);
