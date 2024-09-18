@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Motif extends Model
 {
     use HasFactory;
+
+    function absence()
+    {
+        return $this->hasMany(Absence::class);
+    }
 }

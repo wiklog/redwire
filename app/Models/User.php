@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    function absence()
+    {
+        return $this->hasMany(Absence::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
