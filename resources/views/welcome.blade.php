@@ -36,6 +36,7 @@
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex gap-2 float-right">
                     <a class="text-white p-2 px-4 w-min border rounded bg-gray-900 duration-300 hover:mt-1" href="{{ route('absence.index') }}">Absences</a>
+                    <a class="text-white p-2 px-4 w-min border rounded bg-gray-900 duration-300 hover:mt-1" href="{{ route('motif.index') }}">Motif</a>
                     <a class="text-white p-2 px-4 w-min border rounded bg-gray-900 duration-300 hover:mt-1" href="{{ route('user.index') }}">Users</a>
                 </div>
 

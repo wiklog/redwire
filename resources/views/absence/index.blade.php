@@ -13,7 +13,7 @@
                             <div class='min-w-60 my-auto text-center'>{{ $absence->date_debut }}</div>
                             <div class='min-w-60 my-auto text-center'>{{ $absence->user->lastname}}</div>
                         </div>
-                        <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence->id) }}">Détail</a>
+                        <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence) }}">Détail</a>
 
                     </div>
                 </li>
