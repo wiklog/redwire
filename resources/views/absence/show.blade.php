@@ -8,9 +8,6 @@
     <title>Détail absences</title>
 </head>
 <body>
-
-</body>
-</html>
 <a class="flex justify-center ml-2 mt-2 p-2 px-5 w-min rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white hover:mt-4" href="{{ route('absence.index') }}">Retour</a>
 
 <div class=" bg-white mx-auto p-2 mt-5 max-w-96 border-2 rounded ">
@@ -31,3 +28,6 @@
         <strong>Motif d'absence :</strong> {{ $absence->motif->titre }}
     </div>
 </div>
+</body>
+</html>
+
