@@ -25,13 +25,12 @@ class UserController extends Controller
         //
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $users = User::findOrFail($id);
-        $absences = Absence::where('user_id', $users->id)->get();
+        $absences = Absence::where('user_id', $user->id)->get();
         $motifs = Motif::all();
 
-        return view('user.show', compact('users', 'absences', 'motifs'));
+        return view('user.show', compact('user', 'absences', 'motifs'));
     }
     public function edit(User $user)
     {

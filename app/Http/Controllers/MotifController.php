@@ -9,9 +9,8 @@ class MotifController extends Controller
 {
     public function index()
     {
-        $liste = Motif::all();
-        dd($liste);
-        return view('motif.index');
+        $motifs = Motif::all();
+        return view('motif.index', compact('motifs'));
     }
 
     public function create()
@@ -22,14 +21,16 @@ class MotifController extends Controller
 
     public function store(Request $request)
     {
-        $motifs = new motif();
+        $data = $request->all();
+        $motif = new motif();
 
-        $motifs->titre = 'Ma femme';
-        $motifs->is_accessible_salarie = '0';
+        $motif->titre = $data['titre'];
+        $motif->is_accessible_salarie = $data['is_accessible'];
 
-        $motifs->save();
+        $motif->save();
 
-        return view('motif.index');
+        $motifs = Motif::all();
+        return redirect()->route('motif.index', compact( 'motifs'));
     }
 
     public function show(Motif $motif)
@@ -39,16 +40,25 @@ class MotifController extends Controller
 
     public function edit(Motif $motif)
     {
-
+        return view('motif.edit', compact('motif'));
     }
 
     public function update(Request $request, Motif $motif)
     {
-        //
+        $data = $request->all();
+        $motif->titre = $data['titre'];
+        $motif->is_accessible_salarie = $data['is_accessible'];
+
+        $motif->save();
+
+        $motifs = Motif::all();
+        return redirect()->route('motif.index', compact( 'motifs'));
     }
 
     public function destroy(Motif $motif)
     {
-        //
+        $motif->delete();
+        $motifs = Motif::all();
+        return redirect()->route('motif.index', compact( 'motifs'));
     }
 }

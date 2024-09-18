@@ -19,33 +19,64 @@ class AbsenceController extends Controller
 
     public function create()
     {
-        return view(view: 'absence.create');
+        $users = User::all();
+        $motifs = Motif::all();
+        Absence::all();
+        return view('absence.create', compact('users', 'motifs'));
     }
 
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $absence = new absence();
+
+
+        $absence->user_id = $data['user'];
+        $absence->motif_id = $data['motif'];
+        $absence->date_debut = $data['debut'];
+        $absence->date_fin = $data['fin'];
+
+        $absence->save();
+
+        $users = User::all();
+        $motifs = Motif::all();
+        $absences = Absence::all();
+        return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
-    public function show($id)
+    public function show(Absence $absence)
     {
-        $absence = Absence::findOrFail($id);
-
         return view('absence.show', compact('absence'));
     }
 
     public function edit(Absence $absence)
     {
-        //
+        $users = User::all();
+        $motifs = Motif::all();
+        return view('absence.edit', compact('absence',  'motifs', 'users'));
     }
 
     public function update(Request $request, Absence $absence)
     {
-        //
+        $data = $request->all();
+
+        $absence->user_id = $data['user'];
+        $absence->motif_id = $data['motif'];
+        $absence->date_debut = $data['debut'];
+        $absence->date_fin = $data['fin'];
+
+        $absence->save();
+
+        $users = User::all();
+        $motifs = Motif::all();
+        $absences = Absence::all();
+        return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
     public function destroy(Absence $absence)
     {
-        //
+        $absence->delete();
+        $absences = Absence::all();
+        return redirect()->route('absence.index', compact('absences'));
     }
 }

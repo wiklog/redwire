@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Liste Utilisateurs</title>
-</head>
-<body class="bg-gray-200">
-    <a class="flex justify-center ml-2 mt-2 p-2 px-5 w-min rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white hover:mt-4" href="{{ url('/') }}">Retour</a>
+@extends('layouts.app')
 
+@section('content')
+<div class="bg-gray-200 p-px">
     <div class="w-1/2 bg-white mx-auto rounded-xl border-2 border-gray-400 p-2 mt-5 ">
+        <div class="flex justify-around my-8">
+            <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/') }}">Retour</a>
+            <strong class="text-4xl">Listing des absences</strong>
+            <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">Créer</a>
+        </div>
     <ul class="list-group">
         @forelse ($users as $user)
         <li class="list-group-item">
@@ -30,6 +27,4 @@
         @endforelse
     </ul>
 </div>
-
-</body>
-</html>
+@endsection
