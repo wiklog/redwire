@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MotifRequest;
 use App\Models\Absence;
 use App\Models\Motif;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class MotifController extends Controller
@@ -36,7 +36,7 @@ class MotifController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(MotifRequest $request)
     {
         $data = $request->all();
         $motif = new motif();
@@ -76,7 +76,7 @@ class MotifController extends Controller
      * @param \App\Models\Motif $motif
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Motif $motif)
+    public function update(MotifRequest $request, Motif $motif)
     {
         $data = $request->all();
         $motif->titre = $data['titre'];

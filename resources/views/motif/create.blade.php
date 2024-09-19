@@ -7,7 +7,7 @@
     <div class="mb-3">
         <label for="titre" class="">Titre du Motif</label>
 
-        <input type="text" autofocus class="border" name="titre">
+        <input type="text" autofocus class="border" name="titre" value="{{ old('titre') }}" maxlength="30">
         @error("titre")
             <p class="text-danger">{{ $message }}</p>
         @enderror

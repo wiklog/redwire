@@ -8,7 +8,7 @@
     <div class="mb-3">
         <label for="titre" class="">Titre du Motif</label>
 
-        <input type="text" autofocus class="border" name="titre" value="{{ $motif->titre }}">
+        <input type="text" autofocus class="border" name="titre" value="{{ $motif->titre }}" maxlength="30">
         @error("titre")
             <p class="text-danger">{{ $message }}</p>
         @enderror
@@ -18,9 +18,9 @@
         <label for="is_accessible" class="">Est-il accessible aux salariers?</label><br>
 
         <label for="radio_oui">Oui</label>
-        <input type="radio" checked="{{ $motif->is_accessible_salarie }}" value="1" name="is_accessible"><br>
+        <input type="radio" @if($motif->is_accessible_salarie ==1 )checked @endif value="1" name="is_accessible"><br>
         <label for="radio_non">Non</label>
-        <input type="radio" checked="{{ $motif->is_accessible_salarie }}" value="0" name="is_accessible">
+        <input type="radio" @if($motif->is_accessible_salarie ==0 )checked @endif value="0" name="is_accessible">
 
         @error("is_accessible")
             <p class="text-danger">{{ $message }}</p>
