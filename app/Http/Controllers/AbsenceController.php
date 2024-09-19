@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
 {
+    /**
+     * Summary of index
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $users = User::all();
@@ -18,6 +22,10 @@ class AbsenceController extends Controller
         return view('absence.index', compact('absences', 'users', 'motifs'));
     }
 
+    /**
+     * Summary of create
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function create()
     {
         $users = User::all();
@@ -27,6 +35,11 @@ class AbsenceController extends Controller
         return view('absence.create', compact('users', 'motifs'));
     }
 
+    /**
+     * Summary of store
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -53,11 +66,21 @@ class AbsenceController extends Controller
         return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
+    /**
+     * Summary of show
+     * @param \App\Models\Absence $absence
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function show(Absence $absence)
     {
         return view('absence.show', compact('absence'));
     }
 
+    /**
+     * Summary of edit
+     * @param \App\Models\Absence $absence
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function edit(Absence $absence)
     {
         $users = User::all();
@@ -66,6 +89,12 @@ class AbsenceController extends Controller
         return view('absence.edit', compact('absence', 'motifs', 'users'));
     }
 
+    /**
+     * Summary of update
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Absence $absence
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Absence $absence)
     {
         $request->validate([
@@ -91,6 +120,11 @@ class AbsenceController extends Controller
         return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
+    /**
+     * Summary of destroy
+     * @param \App\Models\Absence $absence
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function destroy(Absence $absence)
     {
         $absence->delete();

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('titre', 30);
             $table->boolean('is_accessible_salarie')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

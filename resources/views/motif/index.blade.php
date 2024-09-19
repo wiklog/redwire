@@ -19,11 +19,21 @@
                     <div class="flex gap-2">
                         <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('motif.show', $motif) }}">Détail</a>
                         <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('motif.edit', $motif) }}">Modifier</a>
-                        <form action="{{ route('motif.destroy', $motif) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
-                        </form>
+                        @if ($motif->deleted_at === null)
+                            <form action="{{ route('motif.destroy', $motif) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
+                            </form>
+                        @else
+                            <form action="{{ route('motif.restore', $motif) }}" method="post">
+                                @csrf
+                                @method('GET')
+
+                                <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-lime-300">Restaurer</button>
+                            </form>
+                        @endif
+
                     </div>
 
                 </div>
