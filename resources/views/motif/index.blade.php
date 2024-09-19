@@ -33,9 +33,7 @@
                                 <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-purple-300">Restaurer</button>
                             </form>
                         @endif
-
                     </div>
-
                 </div>
             </li>
             @empty

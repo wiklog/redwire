@@ -18,13 +18,22 @@
                             <div class='min-w-60 my-auto text-center'>{{ $absence->user->lastname}}</div>
                         </div>
                         <div class="flex gap-2">
-                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence) }}">Détail</a>
-                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('absence.edit', $absence) }}">Modifier</a>
-                            <form action="{{ route('absence.destroy', $absence) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
-                            </form>
+                            @if ($absence->deleted_at === null)
+                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence) }}">Détail</a>
+                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('absence.edit', $absence) }}">Modifier</a>
+                                <form action="{{ route('absence.destroy', $absence) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
+                                </form>
+                            @else
+                                <form action="{{ route('absence.restore', $absence) }}" method="post">
+                                    @csrf
+                                    @method('GET')
+
+                                    <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-purple-300">Restaurer</button>
+                                </form>
+                            @endif
                         </div>
 
                     </div>

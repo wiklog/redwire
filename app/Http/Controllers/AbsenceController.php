@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AbsenceRequest;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
@@ -17,7 +18,7 @@ class AbsenceController extends Controller
     {
         $users = User::all();
         $motifs = Motif::all();
-        $absences = Absence::all();
+        $absences = Absence::withTrashed()->get();
 
         return view('absence.index', compact('absences', 'users', 'motifs'));
     }
@@ -40,15 +41,8 @@ class AbsenceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AbsenceRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'motif_id' => 'required|exists:motifs,id',
-            'date_debut' => 'required|date|before:date_fin',
-            'date_fin' => 'required|date|after:date_debut',
-        ]);
-
         $data = $request->all();
         $absence = new absence();
 
@@ -95,15 +89,8 @@ class AbsenceController extends Controller
      * @param \App\Models\Absence $absence
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Absence $absence)
+    public function update(AbsenceRequest $request, Absence $absence)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'motif_id' => 'required|exists:motifs,id',
-            'date_debut' => 'required|date|before:date_fin',
-            'date_fin' => 'required|date|after:date_debut',
-        ]);
-
         $data = $request->all();
 
         $absence->user_id = $data['user'];
@@ -131,5 +118,17 @@ class AbsenceController extends Controller
         $absences = Absence::all();
 
         return redirect()->route('absence.index', compact('absences'));
+    }
+
+     /**
+     * Summary of restore
+     * @param \App\Models\Absence $absence
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function restore(Absence $absence)
+    {
+        $absence->restore();
+        $absences = Absence::all();
+        return redirect()->route('absence.index', compact( 'absences'));
     }
 }

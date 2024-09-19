@@ -22,5 +22,7 @@ Route::get('/', function () {
 
 Route::get('/motif/{motif}/restore', [MotifController::class, 'restore'])->withTrashed()->name('motif.restore');
 Route::resource('/motif', MotifController::class);
+
+Route::get('/absence/{absence}/restore', [AbsenceController::class, 'restore'])->withTrashed()->name('absence.restore');
 Route::resource('/absence', AbsenceController::class);
 Route::resource('/user', UserController::class);
