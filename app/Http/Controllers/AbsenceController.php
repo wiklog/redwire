@@ -29,6 +29,13 @@ class AbsenceController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'motif_id' => 'required|exists:motifs,id',
+            'date_debut' => 'required|date|before:date_fin',
+            'date_fin' => 'required|date|after:date_debut',
+        ]);
+
         $data = $request->all();
         $absence = new absence();
 
@@ -61,6 +68,13 @@ class AbsenceController extends Controller
 
     public function update(Request $request, Absence $absence)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'motif_id' => 'required|exists:motifs,id',
+            'date_debut' => 'required|date|before:date_fin',
+            'date_fin' => 'required|date|after:date_debut',
+        ]);
+
         $data = $request->all();
 
         $absence->user_id = $data['user'];

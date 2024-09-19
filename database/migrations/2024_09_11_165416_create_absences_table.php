@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId(column: 'user_id')->constrained('users');
             $table->foreignId(column: 'motif_id')->constrained('motifs');
-            $table->date('date_debut')->Before('date_fin');
-            $table->date('date_fin')->After('date_debut');
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->timestamps();
         });
     }
