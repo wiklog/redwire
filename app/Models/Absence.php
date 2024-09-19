@@ -9,12 +9,12 @@ class Absence extends Model
 {
     use HasFactory;
 
-    function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    function motif()
+    public function motif()
     {
         return $this->belongsTo(Motif::class);
     }

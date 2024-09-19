@@ -12,6 +12,7 @@ class UserController extends Controller
     public function index(User $users)
     {
         $users = user::all();
+
         return view('User.index', compact('users'));
     }
 
@@ -22,7 +23,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //
     }
 
     public function show(User $user)
@@ -32,18 +32,16 @@ class UserController extends Controller
 
         return view('user.show', compact('user', 'absences', 'motifs'));
     }
+
     public function edit(User $user)
     {
-        //
     }
 
     public function update(Request $request, User $user)
     {
-        //
     }
 
     public function destroy(User $user)
     {
-        //
     }
 }

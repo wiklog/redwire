@@ -10,12 +10,14 @@ class MotifController extends Controller
     public function index()
     {
         $motifs = Motif::all();
+
         return view('motif.index', compact('motifs'));
     }
 
     public function create()
     {
         Motif::all();
+
         return view('motif.create');
     }
 
@@ -30,12 +32,12 @@ class MotifController extends Controller
         $motif->save();
 
         $motifs = Motif::all();
-        return redirect()->route('motif.index', compact( 'motifs'));
+
+        return redirect()->route('motif.index', compact('motifs'));
     }
 
     public function show(Motif $motif)
     {
-        //
     }
 
     public function edit(Motif $motif)
@@ -52,14 +54,16 @@ class MotifController extends Controller
         $motif->save();
 
         $motifs = Motif::all();
-        return redirect()->route('motif.index', compact( 'motifs'));
+
+        return redirect()->route('motif.index', compact('motifs'));
     }
 
     public function destroy(Motif $motif)
     {
         $motif->delete();
         $motifs = Motif::all();
-        return redirect()->route('motif.index', compact( 'motifs'));
+
+        return redirect()->route('motif.index', compact('motifs'));
     }
 
     // public function restore(Motif $motif)

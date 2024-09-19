@@ -14,6 +14,7 @@ class AbsenceController extends Controller
         $users = User::all();
         $motifs = Motif::all();
         $absences = Absence::all();
+
         return view('absence.index', compact('absences', 'users', 'motifs'));
     }
 
@@ -22,6 +23,7 @@ class AbsenceController extends Controller
         $users = User::all();
         $motifs = Motif::all();
         Absence::all();
+
         return view('absence.create', compact('users', 'motifs'));
     }
 
@@ -29,7 +31,6 @@ class AbsenceController extends Controller
     {
         $data = $request->all();
         $absence = new absence();
-
 
         $absence->user_id = $data['user'];
         $absence->motif_id = $data['motif'];
@@ -41,6 +42,7 @@ class AbsenceController extends Controller
         $users = User::all();
         $motifs = Motif::all();
         $absences = Absence::all();
+
         return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
@@ -53,7 +55,8 @@ class AbsenceController extends Controller
     {
         $users = User::all();
         $motifs = Motif::all();
-        return view('absence.edit', compact('absence',  'motifs', 'users'));
+
+        return view('absence.edit', compact('absence', 'motifs', 'users'));
     }
 
     public function update(Request $request, Absence $absence)
@@ -70,6 +73,7 @@ class AbsenceController extends Controller
         $users = User::all();
         $motifs = Motif::all();
         $absences = Absence::all();
+
         return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
     }
 
@@ -77,6 +81,7 @@ class AbsenceController extends Controller
     {
         $absence->delete();
         $absences = Absence::all();
+
         return redirect()->route('absence.index', compact('absences'));
     }
 }

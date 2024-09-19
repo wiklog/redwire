@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Motif;
+use Illuminate\Database\Seeder;
 
 class MotifSeeder extends Seeder
 {
@@ -14,7 +13,7 @@ class MotifSeeder extends Seeder
     public function run(): void
     {
         Motif::factory()
-        ->count(15)
-        ->create();
+            ->count(15)
+            ->create();
     }
 }

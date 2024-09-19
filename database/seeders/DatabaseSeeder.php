@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         (new AbsenceSeeder)->run();
         (new UserSeeder)->run();
 
-
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
