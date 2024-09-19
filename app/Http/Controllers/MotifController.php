@@ -11,6 +11,7 @@ class MotifController extends Controller
 {
     /**
      * Summary of index
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
@@ -22,6 +23,7 @@ class MotifController extends Controller
 
     /**
      * Summary of create
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
@@ -33,7 +35,9 @@ class MotifController extends Controller
 
     /**
      * Summary of store
+     *
      * @param \Illuminate\Http\Request $request
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function store(MotifRequest $request)
@@ -53,7 +57,9 @@ class MotifController extends Controller
 
     /**
      * Summary of show
+     *
      * @param \App\Models\Motif $motif
+     *
      * @return void
      */
     public function show(Motif $motif)
@@ -62,7 +68,9 @@ class MotifController extends Controller
 
     /**
      * Summary of edit
+     *
      * @param \App\Models\Motif $motif
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Motif $motif)
@@ -72,8 +80,10 @@ class MotifController extends Controller
 
     /**
      * Summary of update
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Motif $motif
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function update(MotifRequest $request, Motif $motif)
@@ -91,7 +101,9 @@ class MotifController extends Controller
 
     /**
      * Summary of destroy
+     *
      * @param \App\Models\Motif $motif
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Motif $motif)
@@ -110,13 +122,15 @@ class MotifController extends Controller
 
     /**
      * Summary of restore
+     *
      * @param \App\Models\Motif $motif
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function restore(Motif $motif)
     {
         $motif->restore();
         $motifs = Motif::all();
-        return redirect()->route('motif.index', compact( 'motifs'));
+        return redirect()->route('motif.index', compact('motifs'));
     }
 }

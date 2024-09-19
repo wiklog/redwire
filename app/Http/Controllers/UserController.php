@@ -11,7 +11,9 @@ class UserController extends Controller
 {
     /**
      * Summary of index
+     *
      * @param \App\Models\User $users
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(User $users)
@@ -23,6 +25,7 @@ class UserController extends Controller
 
     /**
      * Summary of create
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
@@ -32,7 +35,9 @@ class UserController extends Controller
 
     /**
      * Summary of store
+     *
      * @param \Illuminate\Http\Request $request
+     *
      * @return void
      */
     public function store(Request $request)
@@ -41,7 +46,9 @@ class UserController extends Controller
 
     /**
      * Summary of show
+     *
      * @param \App\Models\User $user
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(User $user)
@@ -54,7 +61,9 @@ class UserController extends Controller
 
     /**
      * Summary of edit
+     *
      * @param \App\Models\User $user
+     *
      * @return void
      */
     public function edit(User $user)
@@ -63,8 +72,10 @@ class UserController extends Controller
 
     /**
      * Summary of update
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $user
+     *
      * @return void
      */
     public function update(Request $request, User $user)
@@ -73,7 +84,9 @@ class UserController extends Controller
 
     /**
      * Summary of destroy
+     *
      * @param \App\Models\User $user
+     *
      * @return void
      */
     public function destroy(User $user)

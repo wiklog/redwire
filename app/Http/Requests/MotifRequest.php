@@ -16,6 +16,7 @@ class MotifRequest extends FormRequest
 
     /**
      * Summary of rules
+     *
      * @return array
      */
     public function rules(): array

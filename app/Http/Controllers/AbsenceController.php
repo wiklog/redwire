@@ -6,12 +6,12 @@ use App\Http\Requests\AbsenceRequest;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
 {
     /**
      * Summary of index
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
@@ -25,6 +25,7 @@ class AbsenceController extends Controller
 
     /**
      * Summary of create
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
@@ -38,7 +39,9 @@ class AbsenceController extends Controller
 
     /**
      * Summary of store
+     *
      * @param \Illuminate\Http\Request $request
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function store(AbsenceRequest $request)
@@ -62,7 +65,9 @@ class AbsenceController extends Controller
 
     /**
      * Summary of show
+     *
      * @param \App\Models\Absence $absence
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Absence $absence)
@@ -72,7 +77,9 @@ class AbsenceController extends Controller
 
     /**
      * Summary of edit
+     *
      * @param \App\Models\Absence $absence
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Absence $absence)
@@ -85,8 +92,10 @@ class AbsenceController extends Controller
 
     /**
      * Summary of update
+     *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Absence $absence
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function update(AbsenceRequest $request, Absence $absence)
@@ -109,7 +118,9 @@ class AbsenceController extends Controller
 
     /**
      * Summary of destroy
+     *
      * @param \App\Models\Absence $absence
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Absence $absence)
@@ -120,15 +131,17 @@ class AbsenceController extends Controller
         return redirect()->route('absence.index', compact('absences'));
     }
 
-     /**
+    /**
      * Summary of restore
+     *
      * @param \App\Models\Absence $absence
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function restore(Absence $absence)
     {
         $absence->restore();
         $absences = Absence::all();
-        return redirect()->route('absence.index', compact( 'absences'));
+        return redirect()->route('absence.index', compact('absences'));
     }
 }
