@@ -61,4 +61,11 @@ class MotifController extends Controller
         $motifs = Motif::all();
         return redirect()->route('motif.index', compact( 'motifs'));
     }
+
+    // public function restore(Motif $motif)
+    // {
+    //     $motif->restore();
+    //     $motifs = Motif::all();
+    //     return redirect()->route('motif.index', compact( 'motifs'));
+    // }
 }

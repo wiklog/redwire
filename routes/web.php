@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route::get('/motif/{motif}/restore', [MotifController::class])->withTrashed()->name('motif.restore');
 Route::resource('/motif', MotifController::class);
 Route::resource('/absence', AbsenceController::class);
 Route::resource('/user', UserController::class);

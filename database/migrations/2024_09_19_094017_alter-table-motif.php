@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('motifs', function (Blueprint $table) {
-            $table->boolean('is_accessible_salarie')->default(true);
+            $table->softDeletes();
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('motifs', function (Blueprint $table){
-             $table->dropColumn('is_accessible_salarie');
+        Schema::table('motifs', function (Blueprint $table) {
+            $table->dropColumn('SoftDelete');
         });
-
     }
 };
