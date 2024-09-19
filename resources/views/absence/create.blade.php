@@ -10,7 +10,7 @@
         <select class="border" name="motif">
             <option value="motif">Veuillez choisir un motif</option>
             @foreach ($motifs as $motif)
-                <option value="{{ $motif->id }}">{{ $motif->titre }}</option>
+                <option @if(old('motif') == $motif->id) selected @endif value="{{ $motif->id }}">{{ $motif->titre }}</option>
             @endforeach
         </select>
         @error("titre")
@@ -22,9 +22,9 @@
         <label for="titre" class="">Choisir l'utilisateur</label><br>
 
         <select class="border" name="user">
-            <option value="user">Veuillez choisir un utilisateur</option>
+            <option value="{{ old('user') }}">Veuillez choisir un user</option>
             @foreach ($users as $user)
-                <option value="{{ $user->id }}">{{ $user->lastname }} {{ $user->firstname }}</option>
+                <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->lastname }} {{ $user->firstname }}</option>
             @endforeach
         </select>
         @error("user")
@@ -35,7 +35,7 @@
     <div class="mb-3">
         <label for="debut" class="">Date du début de l'absence</label><br>
 
-        <input type="date" class="" name="debut">
+        <input type="date" class="" name="debut" value="{{ old('debut') }}">
         @error("debut")
             <p>{{ $message }}</p>
         @enderror
@@ -44,7 +44,7 @@
     <div class="mb-3">
         <label for="fin" class="">Date de fin de l'absence</label><br>
 
-        <input type="date" class="" name="fin">
+        <input type="date" class="" name="fin" value="{{ old('fin')}}">
         @error("fin")
             <p>{{ $message }}</p>
         @enderror

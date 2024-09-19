@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('motifs', function (Blueprint $table) {
             $table->id();
             $table->string('titre', 30);
+            $table->boolean('is_accessible_salarie')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
