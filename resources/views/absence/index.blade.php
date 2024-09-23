@@ -6,9 +6,9 @@
             <div class="flex justify-around my-8">
                 <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/') }}">Retour</a>
                 <strong class="text-4xl">Listing des absences</strong>
-                @can('absence-create')
+                {{-- @can('absence-create') --}}
                     <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">Créer</a>
-                @endcan
+                {{-- @endcan --}}
             </div>
             <ul class="list-group">
                 @forelse ($absences as $absence)

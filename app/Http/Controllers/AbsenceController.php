@@ -32,13 +32,13 @@ class AbsenceController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('absence-create')) {
+        // if (Auth::user()->can('absence-create')) {
             $users = User::all();
             $motifs = Motif::all();
             Absence::all();
             return view('absence.create', compact('users', 'motifs'));
-        }
-        abort('401');
+        // }
+        // abort('401');
     }
 
     /**
@@ -50,7 +50,7 @@ class AbsenceController extends Controller
      */
     public function store(AbsenceRequest $request)
     {
-        if (Auth::user()->can('absence-create')) {
+        // if (Auth::user()->can('absence-create')) {
 
             $data = $request->all();
             $absence = new absence();
@@ -59,6 +59,7 @@ class AbsenceController extends Controller
             $absence->motif_id = $data['motif'];
             $absence->date_debut = $data['debut'];
             $absence->date_fin = $data['fin'];
+            $absence->status = $data['status'];
 
             $absence->save();
 
@@ -67,8 +68,8 @@ class AbsenceController extends Controller
             $absences = Absence::all();
 
             return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
-        }
-        abort('401');
+        // }
+        // abort('401');
     }
 
     /**
@@ -96,7 +97,7 @@ class AbsenceController extends Controller
      */
     public function edit(Absence $absence)
     {
-        if (Auth::user()->can('absence-adit')) {
+        if (Auth::user()->can('absence-edit')) {
 
             $users = User::all();
             $motifs = Motif::all();

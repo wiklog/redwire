@@ -49,6 +49,21 @@
             <p>{{ $message }}</p>
         @enderror
     </div>
+    @if(auth()->user()->isA('admin'))
+        <div class="mb-3">
+            <input type="hidden" name="status" value="valider" readonly>
+            @error("status")
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+    @else
+        <div class="mb-3">
+            <input type="hidden" name="status" value="en attente" readonly>
+            @error("status")
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+    @endif
 
     <button type="submit" class="">Créer</button>
 
