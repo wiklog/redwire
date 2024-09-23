@@ -2,7 +2,7 @@
 
 @section('content')
     <a class="flex justify-center ml-2 mt-2 p-2 px-5 w-min rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white hover:mt-4" href="{{ route('user.index') }}">Retour</a>
-    <p class="flex justify-center text-4xl">Absences de {{ $user->firstname }} {{ $user->lastname }}</p>
+    <p class="flex justify-center text-4xl">Absences de {{ $user->name }}</p>
     <ul class="list-group">
         <section class="flex justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($absences as $absence)

@@ -11,10 +11,7 @@
             <strong>Date de fin :</strong> {{ $absence->date_fin }}
         </div>
         <div class="mb-3">
-            <strong>Nom du salarié :</strong> {{ $absence->user->lastname }}
-        </div>
-        <div class="mb-3">
-            <strong>Prenom du salarié :</strong> {{ $absence->user->firstname }}
+            <strong>Nom du salarié :</strong> {{ $absence->user->name }}
         </div>
         <div class="mb-3">
             <strong>Motif d'absence :</strong> {{ $absence->motif->titre }}

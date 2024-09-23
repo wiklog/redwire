@@ -23,9 +23,9 @@
         <label for="titre" class="">Choisir l'utilisateur</label><br>
 
         <select class="border" name="user">
-            <option value="{{ $absence->user->id }}">{{ $absence->user->lastname }} {{ $absence->user->firstname }}</option>
+            <option value="{{ $absence->user->id }}">{{ $absence->user->name }}</option>
             @foreach ($users as $user)
-                <option value="{{ $user->id }}">{{ $user->lastname }} {{ $user->firstname }}</option>
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>
         @error("user")

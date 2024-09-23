@@ -24,7 +24,7 @@
         <select class="border" name="user">
             <option value="{{ old('user') }}">Veuillez choisir un user</option>
             @foreach ($users as $user)
-                <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->lastname }} {{ $user->firstname }}</option>
+                <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>
         @error("user")
