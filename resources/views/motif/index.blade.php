@@ -6,7 +6,9 @@
         <div class="flex justify-around my-8">
             <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/') }}">Retour</a>
             <strong class="text-4xl">Listing des motifs</strong>
-            <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('motif.create') }}">Créer</a>
+            @can('motif-create')
+                <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('motif.create') }}">Créer</a>
+            @endcan
         </div>
         <ul class="list-group">
             @forelse ($motifs as $motif)
@@ -18,20 +20,29 @@
                     </div>
                     <div class="flex gap-2">
                         @if ($motif->deleted_at === null)
-                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('motif.show', $motif) }}">Détail</a>
-                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('motif.edit', $motif) }}">Modifier</a>
-                            <form action="{{ route('motif.destroy', $motif) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
-                            </form>
+                            @can('motif-show')
+                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('motif.show', $motif) }}">Détail</a>
+                            @endcan
+                            @can('motif-edit')
+                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('motif.edit', $motif) }}">Modifier</a>
+                            @endcan
+                            @can('motif-delete')
+                                <form action="{{ route('motif.destroy', $motif) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
+                                </form>
+                            @endcan
                         @else
+                        @can('motif-delete')
                             <form action="{{ route('motif.restore', $motif) }}" method="post">
                                 @csrf
                                 @method('GET')
 
                                 <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-purple-300">Restaurer</button>
                             </form>
+                        @endcan
+
                         @endif
                     </div>
                 </div>

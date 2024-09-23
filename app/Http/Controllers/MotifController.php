@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\MotifRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
 use Illuminate\Support\Facades\Session;
@@ -28,9 +30,13 @@ class MotifController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->can('motif-create')){
         Motif::all();
 
-        return view('motif.create');
+            return view('motif.create');
+        }
+        abort('401');
+
     }
 
     /**
@@ -42,17 +48,21 @@ class MotifController extends Controller
      */
     public function store(MotifRequest $request)
     {
-        $data = $request->all();
-        $motif = new motif();
+        if(Auth::user()->can('motif-create')){
+            $data = $request->all();
+            $motif = new motif();
 
-        $motif->titre = $data['titre'];
-        $motif->is_accessible_salarie = $data['is_accessible'];
+            $motif->titre = $data['titre'];
+            $motif->is_accessible_salarie = $data['is_accessible'];
 
-        $motif->save();
+            $motif->save();
 
-        $motifs = Motif::all();
+            $motifs = Motif::all();
 
-        return redirect()->route('motif.index', compact('motifs'));
+            return redirect()->route('motif.index', compact('motifs'));
+        }
+        abort('401');
+
     }
 
     /**
@@ -64,6 +74,10 @@ class MotifController extends Controller
      */
     public function show(Motif $motif)
     {
+        if(Auth::user()->can('motif-show')){
+            //
+        }
+        abort('401');
     }
 
     /**
@@ -75,7 +89,11 @@ class MotifController extends Controller
      */
     public function edit(Motif $motif)
     {
-        return view('motif.edit', compact('motif'));
+        if(Auth::user()->can('motif-edit')){
+            return view('motif.edit', compact('motif'));
+
+        }
+        abort('401');
     }
 
     /**
@@ -88,15 +106,19 @@ class MotifController extends Controller
      */
     public function update(MotifRequest $request, Motif $motif)
     {
-        $data = $request->all();
-        $motif->titre = $data['titre'];
-        $motif->is_accessible_salarie = $data['is_accessible'];
+        if(Auth::user()->can('motif-edit')){
+            $data = $request->all();
+            $motif->titre = $data['titre'];
+            $motif->is_accessible_salarie = $data['is_accessible'];
 
-        $motif->save();
+            $motif->save();
 
-        $motifs = Motif::all();
+            $motifs = Motif::all();
 
-        return redirect()->route('motif.index', compact('motifs'));
+            return redirect()->route('motif.index', compact('motifs'));
+        }
+        abort('401');
+
     }
 
     /**
@@ -108,16 +130,20 @@ class MotifController extends Controller
      */
     public function destroy(Motif $motif)
     {
-        $nb = Absence::where('motif_id', $motif->id)->count();
+        if(Auth::user()->can('motif-delete')){
+            $nb = Absence::where('motif_id', $motif->id)->count();
 
-        if ($nb === 0) {
-            $motif->delete();
-        } else {
-            session::put('message', "le motif est encore utilisé par {$nb} absence(s)");
+            if ($nb === 0) {
+                $motif->delete();
+            } else {
+                session::put('message', "le motif est encore utilisé par {$nb} absence(s)");
+            }
+
+            $motifs = Motif::all();
+            return redirect()->route('motif.index', compact('motifs'));
         }
+        abort('401');
 
-        $motifs = Motif::all();
-        return redirect()->route('motif.index', compact('motifs'));
     }
 
     /**
@@ -129,8 +155,12 @@ class MotifController extends Controller
      */
     public function restore(Motif $motif)
     {
-        $motif->restore();
-        $motifs = Motif::all();
-        return redirect()->route('motif.index', compact('motifs'));
+        if(Auth::user()->can('motif-delete')){
+            $motif->restore();
+            $motifs = Motif::all();
+            return redirect()->route('motif.index', compact('motifs'));
+        }
+        abort('401');
+
     }
 }

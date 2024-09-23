@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\AbsenceRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
@@ -30,11 +32,13 @@ class AbsenceController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $motifs = Motif::all();
-        Absence::all();
-
-        return view('absence.create', compact('users', 'motifs'));
+        if (Auth::user()->can('absence-create')) {
+            $users = User::all();
+            $motifs = Motif::all();
+            Absence::all();
+            return view('absence.create', compact('users', 'motifs'));
+        }
+        abort('401');
     }
 
     /**
@@ -46,21 +50,25 @@ class AbsenceController extends Controller
      */
     public function store(AbsenceRequest $request)
     {
-        $data = $request->all();
-        $absence = new absence();
+        if (Auth::user()->can('absence-create')) {
 
-        $absence->user_id = $data['user'];
-        $absence->motif_id = $data['motif'];
-        $absence->date_debut = $data['debut'];
-        $absence->date_fin = $data['fin'];
+            $data = $request->all();
+            $absence = new absence();
 
-        $absence->save();
+            $absence->user_id = $data['user'];
+            $absence->motif_id = $data['motif'];
+            $absence->date_debut = $data['debut'];
+            $absence->date_fin = $data['fin'];
 
-        $users = User::all();
-        $motifs = Motif::all();
-        $absences = Absence::all();
+            $absence->save();
 
-        return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
+            $users = User::all();
+            $motifs = Motif::all();
+            $absences = Absence::all();
+
+            return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
+        }
+        abort('401');
     }
 
     /**
@@ -72,7 +80,11 @@ class AbsenceController extends Controller
      */
     public function show(Absence $absence)
     {
-        return view('absence.show', compact('absence'));
+        if (Auth::user()->can('absence-show')) {
+
+            return view('absence.show', compact('absence'));
+        }
+        abort('401');
     }
 
     /**
@@ -84,10 +96,14 @@ class AbsenceController extends Controller
      */
     public function edit(Absence $absence)
     {
-        $users = User::all();
-        $motifs = Motif::all();
+        if (Auth::user()->can('absence-adit')) {
 
-        return view('absence.edit', compact('absence', 'motifs', 'users'));
+            $users = User::all();
+            $motifs = Motif::all();
+
+            return view('absence.edit', compact('absence', 'motifs', 'users'));
+        }
+        abort('401');
     }
 
     /**
@@ -100,20 +116,24 @@ class AbsenceController extends Controller
      */
     public function update(AbsenceRequest $request, Absence $absence)
     {
-        $data = $request->all();
+        if (Auth::user()->can('absence-edit')) {
 
-        $absence->user_id = $data['user'];
-        $absence->motif_id = $data['motif'];
-        $absence->date_debut = $data['debut'];
-        $absence->date_fin = $data['fin'];
+            $data = $request->all();
 
-        $absence->save();
+            $absence->user_id = $data['user'];
+            $absence->motif_id = $data['motif'];
+            $absence->date_debut = $data['debut'];
+            $absence->date_fin = $data['fin'];
 
-        $users = User::all();
-        $motifs = Motif::all();
-        $absences = Absence::all();
+            $absence->save();
 
-        return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
+            $users = User::all();
+            $motifs = Motif::all();
+            $absences = Absence::all();
+
+            return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
+        }
+        abort('401');
     }
 
     /**
@@ -125,10 +145,14 @@ class AbsenceController extends Controller
      */
     public function destroy(Absence $absence)
     {
-        $absence->delete();
-        $absences = Absence::all();
+        if (Auth::user()->can('absence-delete')) {
 
-        return redirect()->route('absence.index', compact('absences'));
+            $absence->delete();
+            $absences = Absence::all();
+
+            return redirect()->route('absence.index', compact('absences'));
+        }
+        abort('401');
     }
 
     /**
@@ -140,8 +164,12 @@ class AbsenceController extends Controller
      */
     public function restore(Absence $absence)
     {
+        if (Auth::user()->can('absence-delete')) {
+
         $absence->restore();
         $absences = Absence::all();
         return redirect()->route('absence.index', compact('absences'));
+        }
+        abort('401');
     }
 }

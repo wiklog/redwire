@@ -6,7 +6,9 @@
             <div class="flex justify-around my-8">
                 <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/') }}">Retour</a>
                 <strong class="text-4xl">Listing des absences</strong>
-                <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">Créer</a>
+                @can('absence-create')
+                    <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">Créer</a>
+                @endcan
             </div>
             <ul class="list-group">
                 @forelse ($absences as $absence)
@@ -19,20 +21,30 @@
                         </div>
                         <div class="flex gap-2">
                             @if ($absence->deleted_at === null)
-                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence) }}">Détail</a>
-                                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('absence.edit', $absence) }}">Modifier</a>
-                                <form action="{{ route('absence.destroy', $absence) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
-                                </form>
+                                @can('absence-show')
+                                    <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('absence.show', $absence) }}">Détail</a>
+                                @endcan
+                                @can('absence-edit')
+                                    <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('absence.edit', $absence) }}">Modifier</a>
+                                @endcan
+                                @can('absence-delete')
+                                    <form action="{{ route('absence.destroy', $absence) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
+                                    </form>
+                                @endcan
+
                             @else
+                            @can('absence-delete')
                                 <form action="{{ route('absence.restore', $absence) }}" method="post">
                                     @csrf
                                     @method('GET')
 
                                     <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-purple-300">Restaurer</button>
                                 </form>
+                            @endcan
+
                             @endif
                         </div>
 
