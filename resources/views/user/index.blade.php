@@ -6,7 +6,6 @@
         <div class="flex justify-around my-8">
             <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/') }}">Retour</a>
             <strong class="text-4xl">Listing des utilisateurs</strong>
-            <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">Créer</a>
         </div>
     <ul class="list-group">
         @forelse ($users as $user)
@@ -15,8 +14,33 @@
                 <div class="flex gap-6">
                     <div class='min-w-40 my-auto text-center'>{{ $user->name}}</div>
                 </div>
-                <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('user.show', $user->id) }}">Détail</a>
+                <div class="flex gap-2">
+                    @if ($user->deleted_at === null)
+                        @can('user-show')
+                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-blue-300" href="{{ route('user.show', $user) }}">Détail</a>
+                        @endcan
+                        @can('user-edit')
+                            <a class="flex justify-center gap-2 p-2 px-5 rounded bg-orange-300" href="{{ route('user.edit', $user) }}">Modifier</a>
+                        @endcan
+                        @can('user-delete')
+                            <form action="{{ route('user.destroy', $user) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-red-300">Supprimer</button>
+                            </form>
+                        @endcan
+                    @else
+                    @can('user-delete')
+                        <form action="{{ route('user.restore', $user) }}" method="post">
+                            @csrf
+                            @method('GET')
 
+                            <button type="submit" class="flex justify-center gap-2 p-2 px-5 rounded bg-purple-300">Restaurer</button>
+                        </form>
+                    @endcan
+
+                    @endif
+                </div>
             </div>
         </li>
         @empty
