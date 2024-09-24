@@ -120,10 +120,10 @@ class MotifController extends Controller
 
             $motifs = Motif::all();
 
-            $admin =
-            foreach($admin as $user){
+            // $admin =
+            // foreach($admin as $user){
                 Mail::to(Auth::user()->email)->send(new EditMotif($motif, $oldtitre, $oldaccessible));
-            }
+            // }
             return redirect()->route('motif.index', compact('motifs'));
         }
         abort('401');
