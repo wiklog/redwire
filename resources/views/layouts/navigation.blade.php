@@ -18,6 +18,9 @@
                     <a class="inline-flex items-center px-1 pt-1 border-b-2 hover:border-indigo-400 text-xs sm:text-sm font-medium leading-5 text-gray-900 focus:border-indigo-700 transition duration-150 ease-in-out" href="{{ route('user.index') }}">Users</a>
                     <a class="inline-flex items-center px-1 pt-1 border-b-2 hover:border-indigo-400 text-xs sm:text-sm font-medium leading-5 text-gray-900 focus:border-indigo-700 transition duration-150 ease-in-out" href="{{ route('absence.index') }}">Absences</a>
                     <a class="inline-flex items-center px-1 pt-1 border-b-2 hover:border-indigo-400 text-xs sm:text-sm font-medium leading-5 text-gray-900 focus:border-indigo-700 transition duration-150 ease-in-out" href="{{ route('motif.index') }}">Motifs</a>
+                    @if(Auth::user()->isA('admin'))
+                        <a class="inline-flex items-center px-1 pt-1 border-b-2 hover:border-indigo-400 text-xs sm:text-sm font-medium leading-5 text-gray-900 focus:border-indigo-700 transition duration-150 ease-in-out" href="{{ route('absence.demande') }}">Demandes</a>
+                    @endif
 
                 </div>
             </div>

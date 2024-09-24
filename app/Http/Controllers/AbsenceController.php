@@ -173,4 +173,15 @@ class AbsenceController extends Controller
         }
         abort('401');
     }
+
+
+    public function demande(Absence $absence)
+    {
+        if (Auth::user()->isA('admin')) {
+
+        $absences = Absence::all();
+        return redirect()->route('absence.demande', compact('absences'));
+        }
+        abort('401');
+    }
 }

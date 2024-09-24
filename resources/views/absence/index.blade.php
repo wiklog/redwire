@@ -15,9 +15,10 @@
                 <li class="list-group-item">
                     <div class="flex justify-between align-items-center my-5 border rounded">
                         <div class="flex">
-                            <div class='min-w-60 my-auto text-center'>{{ $absence->motif->titre}}</div>
-                            <div class='min-w-60 my-auto text-center'>{{ $absence->date_debut }}</div>
-                            <div class='min-w-60 my-auto text-center'>{{ $absence->user->name}}</div>
+                            <div class='min-w-44 my-auto text-center'>{{ $absence->motif->titre}}</div>
+                            <div class='min-w-44 my-auto text-center'>{{ $absence->date_debut }}</div>
+                            <div class='min-w-44 my-auto text-center'>{{ $absence->user->name}}</div>
+                            <div class='min-w-44 my-auto text-center'>{{ $absence->status}}</div>
                         </div>
                         <div class="flex gap-2">
                             @if ($absence->deleted_at === null)
