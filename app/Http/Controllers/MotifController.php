@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EditMotif;
 
 class MotifController extends Controller
 {
@@ -111,14 +113,20 @@ class MotifController extends Controller
             $motif->titre = $data['titre'];
             $motif->is_accessible_salarie = $data['is_accessible'];
 
+            $oldtitre = $data['titre'];
+            $oldaccessible = $data['is_accessible'];
+
             $motif->save();
 
             $motifs = Motif::all();
 
+            $admin =
+            foreach($admin as $user){
+                Mail::to(Auth::user()->email)->send(new EditMotif($motif, $oldtitre, $oldaccessible));
+            }
             return redirect()->route('motif.index', compact('motifs'));
         }
         abort('401');
-
     }
 
     /**
