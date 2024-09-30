@@ -38,7 +38,7 @@ class AbsenceController extends Controller
             Absence::all();
             return view('absence.create', compact('users', 'motifs'));
         // }
-        // abort('401');
+        // abort('403');
     }
 
     /**
@@ -69,7 +69,7 @@ class AbsenceController extends Controller
 
             return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
         // }
-        // abort('401');
+        // abort('403');
     }
 
     /**
@@ -85,7 +85,7 @@ class AbsenceController extends Controller
 
             return view('absence.show', compact('absence'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -104,7 +104,7 @@ class AbsenceController extends Controller
 
             return view('absence.edit', compact('absence', 'motifs', 'users'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -134,7 +134,7 @@ class AbsenceController extends Controller
 
             return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -153,7 +153,7 @@ class AbsenceController extends Controller
 
             return redirect()->route('absence.index', compact('absences'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -171,7 +171,7 @@ class AbsenceController extends Controller
         $absences = Absence::all();
         return redirect()->route('absence.index', compact('absences'));
         }
-        abort('401');
+        abort('403');
     }
 
 
@@ -179,9 +179,9 @@ class AbsenceController extends Controller
     {
         if (Auth::user()->isA('admin')) {
 
-        $absences = Absence::all();
-        return redirect()->route('absence.demande', compact('absences'));
+            $absences = Absence::all();
+            return redirect()->route('absence.demande', compact('absences'));
         }
-        abort('401');
+        abort('403');
     }
 }

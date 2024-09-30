@@ -39,8 +39,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/motif/{motif}/restore', [MotifController::class, 'restore'])->withTrashed()->name('motif.restore');
     Route::get('/absence/{absence}/restore', [AbsenceController::class, 'restore'])->withTrashed()->name('absence.restore');
-    Route::get('/absence/demande', [AbsenceController::class, 'demande'])->name('absence.demande');
     Route::get('/user/{user}/restore', [UserController::class, 'restore'])->withTrashed()->name('user.restore');
+
+    Route::get( '/demande', [AbsenceController::class, 'demande'])->name('absence.demande');
 
     Route::get('language/{code_iso}', [LanguageController::class, 'change'])->name('language.change');
 

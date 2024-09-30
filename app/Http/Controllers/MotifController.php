@@ -37,7 +37,7 @@ class MotifController extends Controller
 
             return view('motif.create');
         }
-        abort('401');
+        abort('403');
 
     }
 
@@ -63,7 +63,7 @@ class MotifController extends Controller
 
             return redirect()->route('motif.index', compact('motifs'));
         }
-        abort('401');
+        abort('403');
 
     }
 
@@ -76,10 +76,7 @@ class MotifController extends Controller
      */
     public function show(Motif $motif)
     {
-        if(Auth::user()->can('motif-show')){
-            //
-        }
-        abort('401');
+        //
     }
 
     /**
@@ -95,7 +92,7 @@ class MotifController extends Controller
             return view('motif.edit', compact('motif'));
 
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -126,7 +123,7 @@ class MotifController extends Controller
             // }
             return redirect()->route('motif.index', compact('motifs'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -150,7 +147,7 @@ class MotifController extends Controller
             $motifs = Motif::all();
             return redirect()->route('motif.index', compact('motifs'));
         }
-        abort('401');
+        abort('403');
 
     }
 
@@ -168,7 +165,7 @@ class MotifController extends Controller
             $motifs = Motif::all();
             return redirect()->route('motif.index', compact('motifs'));
         }
-        abort('401');
+        abort('403');
 
     }
 }

@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view(view: 'User.create');
+        //
     }
 
     /**
@@ -56,10 +56,16 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $absences = Absence::where('user_id', $user->id)->get();
-        $motifs = Motif::all();
+        if (Auth::user()->isA('admin') || Auth::id() === $user->id) {
 
-        return view('user.show', compact('user', 'absences', 'motifs'));
+            $absences = Absence::where('user_id', $user->id)->get();
+            $motifs = Motif::all();
+
+            return view('user.show', compact('user', 'absences', 'motifs'));
+        }
+
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -74,7 +80,7 @@ class UserController extends Controller
         if(Auth::user()->can('user-edit')){
             return view('user.edit', compact('user'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
