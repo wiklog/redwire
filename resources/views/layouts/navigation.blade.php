@@ -27,9 +27,9 @@
             <div class="flex gap-4">
                 <div class="my-auto">
                     @if(app()->getLocale() == 'fr')
-                        <a href="{{ route('language.change', 'en') }}">{{ __('Anglais') }}</a>
+                        <a href="{{ route('language.change', 'en') }}">{{ 'Anglais' }}</a>
                     @else
-                        <a href="{{ route('language.change', 'fr') }}">{{ __('Français') }}</a>
+                        <a href="{{ route('language.change', 'fr') }}">{{ 'French' }}</a>
                     @endif
                 </div>
 

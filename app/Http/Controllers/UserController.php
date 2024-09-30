@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -44,7 +43,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
     }
 
@@ -72,6 +71,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if(Auth::user()->can('user-edit')){
+            return view('user.edit', compact('user'));
+        }
+        abort('401');
     }
 
     /**
@@ -82,8 +85,22 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
+
+        if (Auth::user()->can(abilities: 'user-edit')) {
+
+            $data = $request->all();
+
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+
+            $user->save();
+
+            $users = User::all();
+            return redirect()->route('user.index', compact( 'users'));
+        }
+        abort('401');
     }
 
     /**

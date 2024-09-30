@@ -18,8 +18,8 @@ class AbsenceController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $motifs = Motif::all();
+        $users = User::withTrashed()->get();
+        $motifs = Motif::withTrashed()->get();
         $absences = Absence::withTrashed()->get();
 
         return view('absence.index', compact('absences', 'users', 'motifs'));

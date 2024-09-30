@@ -20,7 +20,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="titre" class="">{{ __('Choose a user') }}</label><br>
+        <label for="user" class="">{{ __('Choose a user') }}</label><br>
 
         <select class="border" name="user">
             <option value="{{ $absence->user->id }}">{{ $absence->user->name }}</option>

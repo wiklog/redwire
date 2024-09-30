@@ -33,9 +33,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('/user', UserController::class);
-    Route::resource('/absence', AbsenceController::class);
-    Route::resource('/motif', MotifController::class);
+    Route::resource('/user', UserController::class)->withTrashed();
+    Route::resource('/absence', AbsenceController::class)->withTrashed();
+    Route::resource('/motif', MotifController::class)->withTrashed();
 
     Route::get('/motif/{motif}/restore', [MotifController::class, 'restore'])->withTrashed()->name('motif.restore');
     Route::get('/absence/{absence}/restore', [AbsenceController::class, 'restore'])->withTrashed()->name('absence.restore');
