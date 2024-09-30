@@ -5,10 +5,10 @@
     @csrf
 
     <div class="mb-3">
-        <label for="titre" class="">Choisir le motif</label><br>
+        <label for="titre" class="">{{ __('Choose a reason') }}</label><br>
 
         <select class="border" name="motif">
-            <option value="motif">Veuillez choisir un motif</option>
+            <option value="motif">{{ __('Please, choose a reason') }}</option>
             @foreach ($motifs as $motif)
                 <option @if(old('motif') == $motif->id) selected @endif value="{{ $motif->id }}">{{ $motif->titre }}</option>
             @endforeach
@@ -19,10 +19,10 @@
     </div>
 
     <div class="mb-3">
-        <label for="titre" class="">Choisir l'utilisateur</label><br>
+        <label for="titre" class="">{{ __('Choose a user') }}</label><br>
 
         <select class="border" name="user">
-            <option value="{{ old('user') }}">Veuillez choisir un user</option>
+            <option value="{{ old('user') }}">{{ __('Please, choose a user') }}</option>
             @foreach ($users as $user)
                 <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
@@ -33,7 +33,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="debut" class="">Date du début de l'absence</label><br>
+        <label for="debut" class="">{{ __('Start absence date') }}</label><br>
 
         <input type="date" class="" name="debut" value="{{ old('debut') }}">
         @error("debut")
@@ -42,7 +42,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="fin" class="">Date de fin de l'absence</label><br>
+        <label for="fin" class="">{{ __('End absence date') }}</label><br>
 
         <input type="date" class="" name="fin" value="{{ old('fin')}}">
         @error("fin")
@@ -65,7 +65,7 @@
         </div>
     @endif
 
-    <button type="submit" class="">Créer</button>
+    <button type="submit" class="">{{ __('Create') }}</button>
 
 </form>
 @endsection

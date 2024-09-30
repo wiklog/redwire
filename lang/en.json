@@ -183,5 +183,8 @@
     "View": "View",
     "View :name": "View :name",
     "Web Server is Down": "Web Server is Down",
-    "Yes": "Yes"
+    "Yes": "Yes",
+    "en attente": "pending",
+    "valider": "validate",
+    "refuser": "rejected"
 }

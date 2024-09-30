@@ -6,7 +6,7 @@
     @method("PUT")
 
     <div class="mb-3">
-        <label for="titre" class="">Choisir le motif</label><br>
+        <label for="titre" class="">{{ __('Choose a reason') }}</label><br>
 
         <select class="border" name="motif">
             <option value="{{ $absence->motif->id }}">{{ $absence->motif->titre }}</option>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="titre" class="">Choisir l'utilisateur</label><br>
+        <label for="titre" class="">{{ __('Choose a user') }}</label><br>
 
         <select class="border" name="user">
             <option value="{{ $absence->user->id }}">{{ $absence->user->name }}</option>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="debut" class="">Date du début de l'absence</label><br>
+        <label for="debut" class="">{{ __('Start absence date') }}</label><br>
 
         <input type="date" class="" value="{{ $absence->date_debut }}" name="debut">
         @error("debut")
@@ -43,7 +43,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="fin" class="">Date de fin de l'absence</label><br>
+        <label for="fin" class="">{{ __('End absence date') }}</label><br>
 
         <input type="date" class="" value="{{ $absence->date_fin }}" name="fin">
         @error("fin")
@@ -51,7 +51,7 @@
         @enderror
     </div>
 
-    <button type="submit" class="">Sauvegarder</button>
+    <button type="submit" class="">{{ __('Save') }}</button>
 
 </form>
 @endsection
