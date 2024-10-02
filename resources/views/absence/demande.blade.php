@@ -4,8 +4,7 @@
     <div class="bg-gray-200 p-px">
         <div class="w-4/6 bg-white mx-auto rounded-xl border-2 border-gray-400 p-2 mt-5 ">
             <div class="flex justify-around my-8">
-                <a class="flex justify-center p-2 px-5 rounded bg-gray-400 duration-300 hover:bg-gray-800 hover:text-white" href="{{ url('/dashboard') }}">{{ __("Back") }}</a>
-                <strong class="text-4xl">{{ __("Request' list") }}</strong>
+                <strong class="text-4xl">{{ __("Requests list") }}</strong>
             </div>
             <ul class="list-group">
             @php
@@ -40,7 +39,7 @@
                     </div>
                 </li>
                 @empty
-                    {{ __('Aucun absence connu')}}
+                    {{ __('Unknown absence')}}
                 @endforelse
             </ul>
         </div>

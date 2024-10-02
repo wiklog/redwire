@@ -19,7 +19,7 @@
         <label for="email" class="">{{ __('Change your email') }}</label><br>
 
         <input type="email" class="" value="{{ $user->email }}" name="email">
-        @error("name")
+        @error("email")
             <p>{{ $message }}</p>
         @enderror
     </div>
