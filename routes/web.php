@@ -41,7 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/absence/{absence}/restore', [AbsenceController::class, 'restore'])->withTrashed()->name('absence.restore');
     Route::get('/user/{user}/restore', [UserController::class, 'restore'])->withTrashed()->name('user.restore');
 
-    Route::get( '/demande', [AbsenceController::class, 'demande'])->name('absence.demande');
+    Route::get('/demande', [AbsenceController::class, 'demande'])->name('absence.demande');
+    Route::get('/status/{absence}/status', [AbsenceController::class, 'status'])->name('absence.status');
 
     Route::get('language/{code_iso}', [LanguageController::class, 'change'])->name('language.change');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\AbsenceRequest;
+use App\Http\Requests\StatusRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
@@ -180,7 +181,23 @@ class AbsenceController extends Controller
         if (Auth::user()->isA('admin')) {
 
             $absences = Absence::all();
-            return redirect()->route('absence.demande', compact('absences'));
+            return view('absence.demande', compact('absences'));
+        }
+        abort('403');
+    }
+
+    public function status(StatusRequest $request, Absence $absence)
+    {
+        if (Auth::user()->isA('admin')) {
+
+            $data = $request->all();
+
+            $absence->status = $data['status'];
+
+            $absence->save();
+            $absences = Absence::all();
+
+            return view('absence.demande', compact('absences'));
         }
         abort('403');
     }

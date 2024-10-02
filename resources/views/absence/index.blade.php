@@ -9,12 +9,12 @@
                 <a class="flex justify-center p-2 px-5 rounded bg-green-500" href="{{ route('absence.create') }}">{{ __("Create") }}</a>
             </div>
             <ul class="list-group">
-                @php
-                    // Si l'utilisateur est admin, il voit toutes les absences, sinon seulement ses propres absences
-                    $userAdmin = Auth::user()->isA('admin') ? $absences : $absences->where('user_id', Auth::user()->id);
-                @endphp
+            @php
+                $absencesNotPending = $absences->where('status', '!=', 'pending');
+                $userAdmin = Auth::user()->isA('admin') ? $absencesNotPending : $absencesNotPending->where('user_id', Auth::user()->id);
+            @endphp
 
-                @forelse ($userAdmin as $absence)
+            @forelse ($userAdmin as $absence)
                 <li class="list-group-item">
                     <div class="flex justify-between align-items-center my-5 border rounded">
                         <div class="flex">
