@@ -4,23 +4,22 @@ namespace App\Mail;
 
 use App\Models\Motif;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EditMotif extends Mailable
+class RestoreMotif extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public Motif $motif, public $oldtitre,  public $oldaccessible)
+    public function __construct(public Motif $motif)
     {
         $this->motif = $motif;
-        $this->oldtitre = $oldtitre;
-        $this->oldaccessible = $oldaccessible;
     }
 
     /**
@@ -29,7 +28,7 @@ class EditMotif extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mise à jours motif',
+            subject: 'Restauration d\'un motif',
         );
     }
 
@@ -39,8 +38,8 @@ class EditMotif extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.motif.edit',
-            with:['motif' => $this->motif, 'oldtitre' => $this->oldtitre, 'oldaccessible' => $this->oldaccessible],
+            view: 'mail.motif.restore',
+            with:['motif' => $this->motif],
         );
     }
 
