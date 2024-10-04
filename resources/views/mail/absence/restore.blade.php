@@ -1,6 +1,6 @@
-<h1>Création d'une absence pour '{{ $absence->user->name }}'</h1>
+<h1>Restauration d'une absence de '{{ $absence->user->name }}'</h1>
 
-<p>Bonjour,<br> Nous vous informons l'ajout de l'absence '{{ $absence->motif->titre }}'</p>
+<p>Bonjour,<br> Nous vous informons que l'absence '{{ $absence->motif->titre }}' à été Restauré</p>
 
 <strong>Informations</strong>
 <p><em>Utilisateur titulaire de l'absence :</em> {{ $absence->user->name }}</p>

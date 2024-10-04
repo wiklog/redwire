@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Absence;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,9 @@ class RestoreAbsence extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public Absence $absence)
     {
-        //
+        $this->absence = $absence;
     }
 
     /**
@@ -27,7 +28,7 @@ class RestoreAbsence extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Restore Absence',
+            subject: 'Restauration d\'une absence',
         );
     }
 
@@ -37,7 +38,8 @@ class RestoreAbsence extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail.absence.restore',
+            with:['absence' => $this->absence],
         );
     }
 
