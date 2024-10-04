@@ -2,6 +2,18 @@
 
 @section('content')
 <div class="bg-gray-200 p-px">
+    @if (session('message'))
+        <div class="alert mt-4 p-4 rounded-md
+                    @if(session('message')['type'] === 'success')
+                        bg-green-100 text-green-800 border border-green-200
+                    @elseif(session('message')['type'] === 'error')
+                        bg-red-100 text-red-800 border border-red-200
+                    @else
+                        bg-gray-100 text-gray-800 border border-gray-200
+                    @endif">
+            {{ session('message')['text'] }}
+        </div>
+    @endif
     <div class="w-1/2 bg-white mx-auto rounded-xl border-2 border-gray-400 p-2 mt-5">
         <div class="flex justify-around my-8">
             <strong class="text-4xl">{{ __('Users listing') }}</strong>

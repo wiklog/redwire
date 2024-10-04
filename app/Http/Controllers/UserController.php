@@ -102,11 +102,12 @@ class UserController extends Controller
             $user->email = $data['email'];
 
             $user->save();
+            session()->flash('message',value: ['type' => 'success', 'text' => __("User edit successfully.")]);
 
             $users = User::all();
             return redirect()->route('user.index', compact( 'users'));
         }
-        abort('401');
+        abort('403');
     }
 
     /**
@@ -123,16 +124,16 @@ class UserController extends Controller
 
             if ($nb === 0) {
                 $user->delete();
+                session()->flash('message',value: ['type' => 'success', 'text' => __("User deleted successfully.")]);
             } else {
-                session::put('message', "le user est encore utilisé par {$nb} absence(s)");
+                session()->flash(key: 'message',value: ['type' => 'error', 'text' => __("The user is still in use with :count absence(s).", ['count' => $nb])]);
             }
 
-            $users = User::all();
-            return redirect()->route('user.index', compact('users'));
+            return redirect()->route('user.index');
         }
-        abort('401');
-
+        abort('403');
     }
+
 
     /**
      * Summary of restore
@@ -146,9 +147,12 @@ class UserController extends Controller
         if(Auth::user()->can('user-delete')){
             $user->restore();
             $users = User::all();
+
+            session()->flash('message',value: ['type' => 'success', 'text' => __("User restore successfully.")]);
+
             return redirect()->route('user.index', compact('users'));
         }
-        abort('401');
+        abort('403');
 
     }
 }

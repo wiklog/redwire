@@ -67,6 +67,7 @@ class AbsenceController extends Controller
             $users = User::all();
             $motifs = Motif::all();
             $absences = Absence::all();
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Absence create successfully.")]);
 
             return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
         // }
@@ -132,6 +133,8 @@ class AbsenceController extends Controller
             $users = User::all();
             $motifs = Motif::all();
             $absences = Absence::all();
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Absence edit successfully.")]);
+
 
             return redirect()->route('absence.index', compact('absences', 'motifs', 'users'));
         }
@@ -151,6 +154,7 @@ class AbsenceController extends Controller
 
             $absence->delete();
             $absences = Absence::all();
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Absence delete successfully.")]);
 
             return redirect()->route('absence.index', compact('absences'));
         }
@@ -169,6 +173,8 @@ class AbsenceController extends Controller
         if (Auth::user()->can('absence-delete')) {
 
         $absence->restore();
+        session()->flash('message',value: ['type' => 'success', 'text' => __("Absence restore successfully.")]);
+
         $absences = Absence::all();
         return redirect()->route('absence.index', compact('absences'));
         }

@@ -63,6 +63,7 @@ class MotifController extends Controller
 
             Mail::to(users: Auth::user()->email)->send(new CreateMotif($motif));
 
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Reason create successfully.")]);
             $motifs = Motif::all();
 
             return redirect()->route('motif.index', compact('motifs'));
@@ -120,6 +121,8 @@ class MotifController extends Controller
 
             $motif->save();
 
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Reason edit successfully.")]);
+
             Mail::to(users: Auth::user()->email)->send(new EditMotif($motif, $oldtitre, $oldaccessible));
 
             $motifs = Motif::all();
@@ -146,10 +149,11 @@ class MotifController extends Controller
                 $oldaccessible = $motif->is_accessible_salarie;
 
                 $motif->delete();
+                session()->flash('message',value: ['type' => 'success', 'text' => __("Reason delete successfully.")]);
 
                 Mail::to(users: Auth::user()->email)->send(mailable: new DeleteMotif($oldtitre, $oldaccessible));
             } else {
-                session::put('message', "le motif est encore utilisé par {$nb} absence(s)");
+                session()->flash('message',value: ['type' => 'error', 'text' => __("The reason is still in use with :count absence(s).", ['count' => $nb])]);
             }
 
             $motifs = Motif::all();
@@ -170,6 +174,8 @@ class MotifController extends Controller
     {
         if(Auth::user()->can('motif-delete')){
             $motif->restore();
+
+            session()->flash('message',value: ['type' => 'success', 'text' => __("Reason restore successfully.")]);
 
             Mail::to(users: Auth::user()->email)->send(new RestoreMotif($motif));
 
