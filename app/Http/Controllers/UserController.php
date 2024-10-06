@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -18,7 +20,8 @@ class UserController extends Controller
      */
     public function index(User $users)
     {
-        $users = user::all();
+        //$users = User::all();
+        $users = User::withTrashed()->get();
 
         return view('User.index', compact('users'));
     }
@@ -30,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view(view: 'User.create');
+        //
     }
 
     /**
@@ -40,7 +43,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
     }
 
@@ -53,10 +56,16 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $absences = Absence::where('user_id', $user->id)->get();
-        $motifs = Motif::all();
+        if (Auth::user()->isA('admin') || Auth::id() === $user->id) {
 
-        return view('user.show', compact('user', 'absences', 'motifs'));
+            $absences = Absence::where('user_id', $user->id)->get();
+            $motifs = Motif::all();
+
+            return view('user.show', compact('user', 'absences', 'motifs'));
+        }
+
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -68,6 +77,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if(Auth::user()->can('user-edit')){
+            return view('user.edit', compact('user'));
+        }
+        abort('403');
     }
 
     /**
@@ -78,8 +91,23 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
+
+        if (Auth::user()->can(abilities: 'user-edit')) {
+
+            $data = $request->all();
+
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+
+            $user->save();
+            session()->flash('message',value: ['type' => 'success', 'text' => __("User edit successfully.")]);
+
+            $users = User::all();
+            return redirect()->route('user.index', compact( 'users'));
+        }
+        abort('403');
     }
 
     /**
@@ -91,5 +119,40 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if(Auth::user()->can('user-delete')){
+            $nb = Absence::where('user_id', $user->id)->count();
+
+            if ($nb === 0) {
+                $user->delete();
+                session()->flash('message',value: ['type' => 'success', 'text' => __("User deleted successfully.")]);
+            } else {
+                session()->flash(key: 'message',value: ['type' => 'error', 'text' => __("The user is still in use with :count absence(s).", ['count' => $nb])]);
+            }
+
+            return redirect()->route('user.index');
+        }
+        abort('403');
+    }
+
+
+    /**
+     * Summary of restore
+     *
+     * @param \App\Models\user $user
+     *
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
+    public function restore(User $user)
+    {
+        if(Auth::user()->can('user-delete')){
+            $user->restore();
+            $users = User::all();
+
+            session()->flash('message',value: ['type' => 'success', 'text' => __("User restore successfully.")]);
+
+            return redirect()->route('user.index', compact('users'));
+        }
+        abort('403');
+
     }
 }

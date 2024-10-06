@@ -1,56 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('absence.store') }}" method="post">
+<form action="{{ route('absence.store') }}" method="post" class="max-w-lg mx-auto p-6 mt-20 bg-white rounded-lg shadow-md">
     @csrf
 
-    <div class="mb-3">
-        <label for="titre" class="">Choisir le motif</label><br>
-
-        <select class="border" name="motif">
-            <option value="motif">Veuillez choisir un motif</option>
-            @foreach ($motifs as $motif)
+    <div class="mb-4">
+        <label for="motif" class="block text-gray-700 font-semibold">{{ __('Choose a reason') }}</label>
+        <select class="border border-gray-300 rounded p-2 w-full" name="motif">
+            <option value="">{{ __('Please, choose a reason') }}</option>
+            @foreach (Auth::user()->isA('admin') ? $motifs : $motifs->where('is_accessible_salarie', 1) as $motif)
                 <option @if(old('motif') == $motif->id) selected @endif value="{{ $motif->id }}">{{ $motif->titre }}</option>
             @endforeach
         </select>
-        @error("titre")
-            <p>{{ $message }}</p>
+        @error("motif")
+            <p class="text-red-600 mt-1">{{ $message }}</p>
         @enderror
     </div>
 
-    <div class="mb-3">
-        <label for="titre" class="">Choisir l'utilisateur</label><br>
-
-        <select class="border" name="user">
-            <option value="{{ old('user') }}">Veuillez choisir un user</option>
-            @foreach ($users as $user)
-                <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->lastname }} {{ $user->firstname }}</option>
+    <div class="mb-4">
+        <label for="user" class="block text-gray-700 font-semibold">{{ __('Choose a user') }}</label>
+        <select class="border border-gray-300 rounded p-2 w-full" name="user">
+            <option value="">{{ __('Please, choose a user') }}</option>
+            @foreach (Auth::user()->isA('admin') ? $users : [Auth::user()] as $user)
+                <option @if(old('user') == $user->id) selected @endif value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>
         @error("user")
-            <p>{{ $message }}</p>
+            <p class="text-red-600 mt-1">{{ $message }}</p>
         @enderror
     </div>
 
-    <div class="mb-3">
-        <label for="debut" class="">Date du début de l'absence</label><br>
-
-        <input type="date" class="" name="debut" value="{{ old('debut') }}">
+    <div class="mb-4">
+        <label for="debut" class="block text-gray-700 font-semibold">{{ __('Start absence date') }}</label>
+        <input type="date" class="border border-gray-300 rounded p-2 w-full" name="debut" value="{{ old('debut') }}">
         @error("debut")
-            <p>{{ $message }}</p>
+            <p class="text-red-600 mt-1">{{ $message }}</p>
         @enderror
     </div>
 
-    <div class="mb-3">
-        <label for="fin" class="">Date de fin de l'absence</label><br>
-
-        <input type="date" class="" name="fin" value="{{ old('fin')}}">
+    <div class="mb-4">
+        <label for="fin" class="block text-gray-700 font-semibold">{{ __('End absence date') }}</label>
+        <input type="date" class="border border-gray-300 rounded p-2 w-full" name="fin" value="{{ old('fin') }}">
         @error("fin")
-            <p>{{ $message }}</p>
+            <p class="text-red-600 mt-1">{{ $message }}</p>
         @enderror
     </div>
 
-    <button type="submit" class="">Créer</button>
+    <input type="hidden" name="status" value="{{ auth()->user()->isA('admin') ? 'validate' : 'pending' }}" readonly>
 
+    <button type="submit" class="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600">
+        {{ __('Create') }}
+    </button>
 </form>
 @endsection

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId(column: 'motif_id')->constrained('motifs');
             $table->date('date_debut');
             $table->date('date_fin');
+            $table->enum('status', ['pending', 'validate', 'reject'])->default('pending');
             $table->timestamps();
             $table->softDeletes();
 
