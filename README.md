@@ -7,60 +7,105 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# README
+## Mise en Place
+### Importation du projet
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Dans le dossier de votre choix, vous allez ouvrir git bash et y insérer la commande :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    git clone https://github.com/GuiguianMateo/Laravel-10-Blanc.git
+    
+### Téléchargement des fichiers suplémentaires
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Après avoir installé votre project, il vous sufit de l'ouvrir depuis un IDE et d'y inséré dans un terminal :
 
-## Learning Laravel
+    composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Connexion
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+A la racine du projet, si un fichier .env est déjà créé, ouvrez le. Sinon vous allez le crée manuelement ".env" situer dans votre-répertoire/redwire
+Vous copierez l'interrieur du fichier .env.exemple (à coter du fichier .env)
+Et vous le collerez dans le fichier .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Ensuite vous allez y modifier :
 
-## Laravel Sponsors
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=redwire
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Terminal
+Dans un tereminal de votre IDE vous allez pouvoir lancez ces commandes :
 
-### Premium Partners
+    php artisan migrate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Si un message vous demande de créé la base de donnée, vous selectionnez "yes"
 
-## Contributing
+### Tinker
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ensuite nous allons entrez dans Tinker
 
-## Code of Conduct
+    php artisan tinker
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Créeation des utilisateurs
 
-## Security Vulnerabilities
+    User::create(["name"=> "Admin","email"=>"admin@gmail.com","password"=>bcrypt("adminadmin")]);
+    User::create(["name"=> "User","email"=>"user@gmail.com","password"=>bcrypt("useruser")]);
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Ensuite la création des roles et leurs abilities
 
-## License
+    Bouncer::allow('admin')->to('motif-create');
+    Bouncer::allow('admin')->to('motif-show');
+    Bouncer::allow('admin')->to('motif-edit');
+    Bouncer::allow('admin')->to('motif-delete');
+    
+    Bouncer::allow('admin')->to('absence-create');
+    Bouncer::allow('admin')->to('absence-show');
+    Bouncer::allow('admin')->to('absence-edit');
+    Bouncer::allow('admin')->to('absence-delete');
+    
+    Bouncer::allow('admin')->to('user-create');
+    Bouncer::allow('admin')->to('user-show');
+    Bouncer::allow('admin')->to('user-edit');
+    Bouncer::allow('admin')->to('user-delete');
+    
+    Bouncer::allow('salarie')->to('absence-create');
+    Bouncer::allow('salarie')->to('absence-show');
+    Bouncer::allow('salarie')->to('user-show');
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Puis assigner les roles aux utilisateurs
+
+    $user = User::find(1);
+    Bouncer::assign('admin')->to($user);
+
+    $user = User::find(2);
+    Bouncer::assign('salarie')->to($user);
+
+### Base de donnée
+
+Vous allez grâce à la commande suivante, peupler votre base de donnée
+
+   php artisan db:seed
+
+## Lancement du projet  
+Pour finaliserla mise en place du projet, vous allez activez l'application
+
+    php artisan serve
+
+Ainsi que la commande suivante pour faire fonctioner les scrips JS 
+
+    npm run dev
+
+### Connexion au comptes
+Connectez-vous avec le compte que vous souaiter
+
+    admin@gmail.com
+    adminadmin
+
+ou
+
+    user@gmail.com
+    useruser
+
